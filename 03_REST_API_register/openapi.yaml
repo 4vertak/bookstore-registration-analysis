@@ -1,0 +1,126 @@
+openapi: '3.0.3'
+info:
+  title: Book Store Registration API
+  description: API для регистрации новых пользователей
+  version: '1.0'
+servers:
+  - url: https://api.bookstore.ru/v1
+    description: Production
+paths:
+  /auth/register:
+    post:
+      summary: Регистрация пользователя
+      description: Создает нового пользователя в системе Book Store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: Успешная регистрация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Ошибка валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                INVALID_PASSWORD:
+                  value:
+                    success: false
+                    errorCode: "INVALID_PASSWORD"
+                    message: "Password does not meet complexity requirements"
+                CAPTCHA_REQUIRED:
+                  value:
+                    success: false
+                    errorCode: "CAPTCHA_REQUIRED"
+                    message: "Please verify reCaptcha to register!"
+                VALIDATION_ERROR:
+                  value:
+                    success: false
+                    errorCode: "VALIDATION_ERROR"
+                    errors:
+                      firstName: ["Required"]
+                      lastName: ["Required"]
+        '409':
+          description: Пользователь уже существует
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                success: false
+                errorCode: "USER_ALREADY_EXISTS"
+                message: "User exists!"
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                success: false
+                errorCode: "INTERNAL_ERROR"
+                message: "Internal server error"
+components:
+  schemas:
+    RegisterRequest:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - username
+        - password
+        - captchaToken
+      properties:
+        firstName:
+          type: string
+          example: "Ivan"
+        lastName:
+          type: string
+          example: "Ivanov"
+        username:
+          type: string
+          example: "Ivan"
+        password:
+          type: string
+          pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$'
+          description: "Пароль: минимум 8 символов, 1 цифра, 1 спецсимвол, 1 заглавная, 1 строчная"
+          example: "Password123!"
+        captchaToken:
+          type: string
+          example: "recaptcha-response-token"
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "User Register Successfully"
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        errorCode:
+          type: string
+          example: "ERROR_CODE"
+        message:
+          type: string
+          example: "Error description"
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: "Опционально, детализация ошибок по полям"
