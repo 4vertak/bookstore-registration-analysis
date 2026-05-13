@@ -60,6 +60,16 @@ paths:
                 success: false
                 errorCode: "USER_ALREADY_EXISTS"
                 message: "User exists!"
+        '415':
+          description: Неверный Content-Type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                success: false
+                errorCode: "UNSUPPORTED_MEDIA_TYPE"
+                message: "Content-Type must be application/json"
         '500':
           description: Внутренняя ошибка сервера
           content:

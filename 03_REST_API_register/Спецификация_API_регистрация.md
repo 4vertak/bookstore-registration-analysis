@@ -116,3 +116,23 @@
   "message": "User exists!"
 }
 ```
+
+**Неверный Content-Type (415)**
+
+```json
+{
+  "success": false,
+  "errorCode": "UNSUPPORTED_MEDIA_TYPE",
+  "message": "Content-Type must be application/json"
+}
+```
+
+**Внутренняя ошибка сервера (500)**
+
+```json
+{
+  "success": false,
+  "errorCode": "INTERNAL_ERROR",
+  "message": "Internal server error"
+}
+```
