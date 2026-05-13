@@ -4,10 +4,10 @@ info:
   description: API для регистрации новых пользователей
   version: '1.0'
 servers:
-  - url: https://api.bookstore.ru/v1
+  - url: https://api.bookstore.ru
     description: Production
 paths:
-  /auth/register:
+  /api/v1/auth/register:
     post:
       summary: Регистрация пользователя
       description: Создает нового пользователя в системе Book Store
@@ -35,7 +35,7 @@ paths:
                   value:
                     success: false
                     errorCode: "INVALID_PASSWORD"
-                    message: "Password does not meet complexity requirements"
+                    message: "Passwords must have at least one non alphanumeric character, one digit ('0'-'9'), one uppercase ('A'-'Z'), one lowercase ('a'-'z'), one special character and Password must be eight characters or longer."
                 CAPTCHA_REQUIRED:
                   value:
                     success: false
@@ -45,9 +45,11 @@ paths:
                   value:
                     success: false
                     errorCode: "VALIDATION_ERROR"
+                    message: "Please correct the highlighted fields"
                     errors:
-                      firstName: ["Required"]
-                      lastName: ["Required"]
+                      firstName: ["required"]
+                      lastName: ["required"]
+                      username: ["required"]
         '409':
           description: Пользователь уже существует
           content:
@@ -98,6 +100,9 @@ components:
           example: "recaptcha-response-token"
     SuccessResponse:
       type: object
+      required:
+        - success
+        - message
       properties:
         success:
           type: boolean
@@ -107,6 +112,10 @@ components:
           example: "User Register Successfully"
     ErrorResponse:
       type: object
+      required:
+        - success
+        - errorCode
+        - message
       properties:
         success:
           type: boolean
