@@ -7,12 +7,12 @@
 ```text
 bookstore-registration-analysis/
 ├── 01_BPMN
-│   ├── Анализ_описания.md
-│   ├── Анализ_описания.xlsx
+│   ├── Анализ_описания.md   # для удобства чтения в репозитории
+│   ├── Анализ_описания.xlsx # для фильтрации и группировки
 │   └── Процесс_выдачи_оборудования.png
 ├── 02_UserStory_UseCases
 │   ├── User_Story_and_Use_Cases.md
-│   ├── User_Story_and_Use_Cases.xlsx
+│   ├── User_Story_and_Use_Cases.xlsx 
 │   └── Диаграмма_процесса_публикации.png
 ├── 03_REST_API_register
 │   ├── openapi.yaml
@@ -30,7 +30,7 @@ bookstore-registration-analysis/
 
 2. [x] Составить список выявленныx вопросов и противоречия.
 >Реализация:\
->[Посмортеть анализ текстового описания](./01_BPMN/Анализ_описания.md)\
+>[Посмортеть анализ текстового описания](./01_BPMN/Анализ_описания.md)
 
 ## Задание 2. User Story и варианты использования для публикации товара
 
@@ -38,7 +38,7 @@ Cформулировать требования для реализации н�
 1. [x] User Story и Use Cases для функционала публикации товара.
 >Реализации:\
 > [Посмотреть User Story и Use Cases (Markdown)](./02_UserStory_UseCases/User_Story_and_Use_Cases.md) \
-> [Скачать User Story и Use Cases в Excel](./02_UserStory_UseCases/User_Story_and_Use_Cases.xlsx)
+> [Скачать User Story и Use Cases в Excel](./02_UserStory_UseCases/User_Story_and_Use_Cases.xlsx) \
 > [Посмотреть диаграмму процесса публикации](./02_UserStory_UseCases/Диаграмма_процесса_публикации.png)
 
 ## Задание 3. Cпецификация REST API регистрации пользователя
